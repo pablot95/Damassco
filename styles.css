@@ -216,6 +216,7 @@ header {
 
 .hero-left {
     background: #f5f5f5;
+    position: relative;
 }
 
 .hero-right {
@@ -227,6 +228,33 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Imagen de fondo (bags) */
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Imagen principal (imagenIzq) con efecto hover */
+.hero-main-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all  3s ease;
+}
+
+.hero-bg-image:hover .hero-main-image, .hero-main-image:hover{
+    transform: scale(0.001);
+    border-radius: 640px;
 }
 
 .hero-right img {
@@ -932,6 +960,9 @@ header {
         height: 45vh;
         min-height: 350px;
     }
+    .logo img{
+        margin-left: 40px;
+    }
 
     .hero-right img {
         padding: 30px;
@@ -1037,6 +1068,26 @@ header {
     }
 }
 
-/* Animations removed for better UX */
+/* Animaciones desde abajo */
+@keyframes slideUpFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(250px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Clase para elementos animados */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(250px);
+}
+
+.animate-on-scroll.animated {
+    animation: slideUpFromBottom 2.5s ease-out forwards;
+}
 
 

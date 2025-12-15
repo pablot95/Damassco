@@ -359,6 +359,40 @@ const debouncedScroll = debounce(() => {
 
 window.addEventListener('scroll', debouncedScroll);
 
+// Animaciones desde abajo al hacer scroll
+const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Calcular delay basado en el índice del elemento
+                const allElements = Array.from(document.querySelectorAll('.animate-on-scroll'));
+                const index = allElements.indexOf(entry.target);
+                const delay = index * 0.04; // 40ms entre cada elemento
+                
+                setTimeout(() => {
+                    entry.target.classList.add('animated');
+                }, delay * 500);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    elements.forEach(element => {
+        observer.observe(element);
+    });
+};
+
+// Inicializar animaciones cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', animateOnScroll);
+} else {
+    animateOnScroll();
+}
+
 // Console welcome message
 console.log('%c¡Bienvenido a Damassco! 🛍️', 'font-size: 20px; font-weight: bold; color: #8B4513;');
 console.log('%cArtesanía en cuero genuino desde 1985', 'font-size: 14px; color: #666;');
